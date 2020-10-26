@@ -56,6 +56,10 @@ print(fib())
 
 注意对应关系即可
 
+```mma
+NestList[{#[[2]], #[[1]] + #[[2]]} &, {1, 1}, 5][[All, 1]]
+```
+
 ### 求任意带系数的线性递推的 n
 
 以 a<sub>n+2</sub> = 2 a<sub>n+1</sub> + a<sub>n</sub>, a<sub>1</sub> = a<sub>2</sub> =1 为例
@@ -68,10 +72,18 @@ print(fib())
 
 注意变量顺序
 
+```mma
+NestList[{#[[2]], #[[1]] + 2 #[[2]]} &, {1, 1}, 5][[All, 1]]
+```
+
 ### 求解 taylor 展开
 
 ```
 TaylorSeries(sin(x), 0, 5)
+```
+
+```mma
+Series[Sin[x], {x, 0, 5}]
 ```
 
 ### 表示 n 进制
@@ -82,10 +94,18 @@ ToBase(99,2)
 
 返回值是 Text
 
+```mma
+IntegerDigits[99, 2]
+```
+
 ### 绘制累和函数
 
 ```
 sum(abs(x - t), t, 0, 5)
+```
+
+```mma
+Plot[Sum[Abs[x - t], {t, 0, 5}], {x, -5, 5}]
 ```
 
 ### 绘制撞球摆
@@ -172,3 +192,8 @@ RecurrenceTable[{a[n] == n*a[n - 1] + a[n - 2], a[1] == 1, a[2] == 1}, a[n], {n,
 
 > {1, 1, 4, 17, 89, 551, 3946, 32119, 293017, 2962289}
 
+以及 Mathematica 的代码
+
+```mma
+Nest[Append[#[[-2]] + #[[-1]]*(1 + Length@#)][#] &, {1, 1}, 5]
+```
